@@ -3,7 +3,7 @@ $(document).ready(function(){
   $('form').on('submit', function(){
 
       var item = $('form input');
-      var todo = {item: item.val()};
+      var todo = {items: item.val()};
 
       $.ajax({
         type: 'POST',
@@ -20,13 +20,13 @@ $(document).ready(function(){
   });
 
   $('li').on('click', function(){
-      var item = $(this).text().replace(/ /g, "-");
+      var items = $(this).text().trim().replace(/ /g, "-");  //white space replaced by - coz it needs to be passed in url
       $.ajax({
         type: 'DELETE',
-        url: '/todo/' + item,
-        success: function(data){
+        url: '/todo/' + items,          //url passed to controller
+        success: function(data){        //if success then this function is called
           //do something with the data via front-end framework
-          location.reload();
+          location.reload();            //reload the page
         }
       });
   });
