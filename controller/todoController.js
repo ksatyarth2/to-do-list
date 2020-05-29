@@ -22,7 +22,7 @@ var urlencodedParser = bodyParser.urlencoded({extended: true});
 
 module.exports = function(app){
 
-app.get('/todo', function(req, res){
+app.get('/', function(req, res){
     //get data from mongodb and pass it to view
     Todo.find({}, function(err, data){      //find methods finds all the items in the collection if left empty
         if (err) throw err;
@@ -31,7 +31,7 @@ app.get('/todo', function(req, res){
     });
 });
 
-app.post('/todo',urlencodedParser, function(req, res){
+app.post('/',urlencodedParser, function(req, res){
     //get data from view and add it to mongodb
     var newTodo = Todo(req.body).save(function(err, data){
         if(err) throw err;
@@ -41,7 +41,7 @@ app.post('/todo',urlencodedParser, function(req, res){
 // res.json(data);
 });
 
-app.delete('/todo/:items', function(req, res){
+app.delete('/:items', function(req, res){
     //delete requested item from database
     Todo.find({items: req.params.items.replace(/\-/g, ' ')}).remove(function(err, data){    //replace - with space and remove that data
         if (err) throw err;
